@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="FundManagerDashboard.Client.Desktop.View.StockListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:resx="clr-namespace:FundManagerDashboard.Core.Properties;assembly=FundManagerDashboard.Core"
+             xmlns:local="clr-namespace:FundManagerDashboard.Client.Desktop.View"
+             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <DockPanel Margin="8">
+        <Border CornerRadius="6"
+                BorderBrush="Gray"
+                Background="LightGray"
+                BorderThickness="2"
+                Padding="8"
+                DockPanel.Dock="Top">
+            <xcdg:DataGridControl x:Name="mainStockGrid" AutoCreateColumns="False">
+                <xcdg:DataGridControl.View>
+                    <xcdg:TableflowView ColumnStretchMode="All"/>
+                </xcdg:DataGridControl.View>
+                <xcdg:DataGridControl.Columns>
+                    <xcdg:Column FieldName="Type" Title="{x:Static resx:Resources.ListHeaderType}"/>
+                    <xcdg:Column FieldName="Name" Title="{x:Static resx:Resources.ListHeaderName}">
+                        <xcdg:Column.CellContentTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="NameBlock" Text="{Binding}"/>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=xcdg:DataRow},Path=DataContext.Highlight}" Value="True">
+                                        <Setter TargetName="NameBlock" Property="Foreground" Value="Red" />
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </xcdg:Column.CellContentTemplate>
+                    </xcdg:Column>
+                    <xcdg:Column FieldName="Price" Title="{x:Static resx:Resources.ListHeaderPrice}" CellContentStringFormat="{}{0:C}"/>
+                    <xcdg:Column FieldName="Quantity" Title="{x:Static resx:Resources.ListHeaderQuantity}"/>
+                    <xcdg:Column FieldName="MarketValue" Title="{x:Static resx:Resources.ListHeaderMarketValue}" CellContentStringFormat="{}{0:C}"/>
+                    <xcdg:Column FieldName="TransactionCost" Title="{x:Static resx:Resources.ListHeaderTransactionCost}" CellContentStringFormat="{}{0:C}"/>
+                    <xcdg:Column FieldName="StockWeight" Title="{x:Static resx:Resources.ListHeaderStockWeight}" CellContentStringFormat="{}{0:P}"/>
+                </xcdg:DataGridControl.Columns>
+            </xcdg:DataGridControl>
+        </Border>
+    </DockPanel>
+</UserControl>
